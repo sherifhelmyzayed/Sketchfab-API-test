@@ -2,161 +2,144 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sketchfab Viewer Test</title>
-    <link rel="stylesheet" href="api.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sketchfab Viewer Test</title>
+  <link rel="stylesheet" href="api.css">
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
 
-    <!-- Insert this script -->
-    <script src="api.js"></script>
+
+  <!-- Insert this script -->
+  <script src="api.js"></script>
 
 </head>
 
 <body>
-    <!-- Insert an empty iframe with attributes -->
+  <!-- Insert an empty iframe with attributes -->
+  <div class="iframe">
     <iframe src="" id="api-frame" allow="autoplay; fullscreen; xr-spatial-tracking" xr-spatial-tracking
-        execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true"
-        webkitallowfullscreen="true" width="1200" height="600">
+      execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true"
+      webkitallowfullscreen="true" width="1200" height="600">
     </iframe>
+    <i class="far fa-video" onclick="toggle_video_modal()"></i>
+  </div>
 
-    <!-- <main>
-        <h1>YouTube Video Modal</h1>
-        <a class="btn ho js-trigger-video-modal" href="https://www.youtube.com/watch?v=F1B9Fk_SgI0">Open modal</a>
-    </main> -->
-      
-    <section class="video-modal">
+
+  <section class="video-modal">
     <!-- Modal Content Wrapper -->
     <div class="video-modal-content" id="video-modal-content">
-        <!-- iframe -->
-        <!-- <iframe width="420" height="315" src="https://www.youtube.com/embed/A6XUVjK9W4o" frameborder="0" allowfullscreen></iframe> -->
-        <!-- <iframe allowfullscreen frameborder="0" height="100%" id="youtube" name="youtube" src="https://www.youtube.com/watch?v=r-9M4P7GOuQ" width="80%"></iframe> -->
-        <iframe  id="youtube" name="youtube" width="100%" height="100%" src="https://www.youtube.com/embed/r-9M4P7GOuQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-         <a class="close-video-modal"></a>
+      <!-- iframe -->
+      <iframe id="youtube" name="youtube" width="100%" height="100%" src="https://www.youtube.com/embed/r-9M4P7GOuQ"
+        title="YouTube video player" frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+      <a class="close-video-modal"></a>
     </div><!-- end modal content wrapper -->
     <!-- clickable overlay element -->
     <div class="overlay"></div>
-    </section><!-- end video modal -->
+  </section><!-- end video modal -->
 
 
-    <!-- Initialize the viewer -->
-    <script type="text/javascript">
-        var iframe = document.getElementById('api-frame');
-        var uid = 'addcaded8efd4266b860e25a5ecb3b99';
+  <!-- Initialize the viewer -->
+  <script type="text/javascript">
+    var iframe = document.getElementById('api-frame');
+    var uid = 'addcaded8efd4266b860e25a5ecb3b99';
 
-        // By default, the latest version of the viewer API will be used.
-        var client = new Sketchfab(iframe);
+    // By default, the latest version of the viewer API will be used.
+    var client = new Sketchfab(iframe);
 
-        // Alternatively, you can request a specific version.
-        // var client = new Sketchfab( '1.11.0', iframe );
+    // Alternatively, you can request a specific version.
+    // var client = new Sketchfab( '1.11.0', iframe );
 
-        client.init(uid, {
-            success: function onSuccess(api) {
-                api.start();
-                api.addEventListener('viewerready', function () {
+    client.init(uid, {
+      success: function onSuccess(api) {
+        api.start();
+        api.addEventListener('viewerready', function () {
 
-
-                    // api.getAnnotationList(function (err, annotations) {
-                    //     if (!err) {
-                    //         console.log(annotations[3]);
-                    //     }
-                    // });
-
-                    // api.getAnnotation(3, function (err, information) {
-                    //     if (!err) {
-                    //         information[3].addEventListener('annotationMouseEnter', ()=> {
-                    //             console.log("HAPPENS");
-                    //         })
-                    //     }
-                    // });
-
-                    api.addEventListener('annotationSelect', function (index) {
-                        if(index === 3) {
-                            toggle_video_modal()
-                        }
-                        window.console.log('Selected annotation', index);
-                    });
-
-
-
-
-
-
-
-                    // API is ready to use
-                    // Insert your code here
-                    console.log('Viewer is ready');
-
-                });
-            },
-            error: function onError() {
-                console.log('Viewer error');
+          api.addEventListener('annotationSelect', function (index) {
+            if (index === 3) {
+              toggle_video_modal()
             }
+            window.console.log('Selected annotation', index);
+          });
+
+
+
+          // API is ready to use
+          // Insert your code here
+          console.log('Viewer is ready');
+
         });
-    </script>
-
-    <script>
-        function toggle_video_modal() {
-            console.log("Happens!!");
-        }
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script>
-  function toggle_video_modal() {
-      console.log("HA");
-    //   var src = 'https://www.youtube.com/watch?v=r-9M4P7GOuQ'
-    //   var src = '//www.youtube.com/embed/' + '?autoplay=1' + '&rel=0';
-
-
-    //   $("#youtube").attr('src', src);
-
-      $("body").addClass("show-video-modal noscroll");
-
-    // Click on video thumbnail or link
-    $(".js-trigger-video-modal").on("click", function(e) {
-      // prevent default behavior for a-tags, button tags, etc. 
-      e.preventDefault();
-      // Grab the video ID from the element clicked
-      var id = $(this).attr('data-youtube-id');
-      // Autoplay when the modal appears
-      // Note: this is intetnionally disabled on most mobile devices
-      // If critical on mobile, then some alternate method is needed
-      var autoplay = '?autoplay=1';
-      // Don't show the 'Related Videos' view when the video ends
-      var related_no = '&rel=0';
-      // String the ID and param variables together
-      var src = '//www.youtube.com/embed/' + id + autoplay + related_no;
-      // Pass the YouTube video ID into the iframe template...
-      // Set the source on the iframe to match the video ID
-      $("#youtube").attr('src', src);
-      // Add class to the body to visually reveal the modal
-      $("body").addClass("show-video-modal noscroll");
-    });
-    // Close and Reset the Video Modal
-    function close_video_modal() {
-      event.preventDefault();
-      // re-hide the video modal
-      $("body").removeClass("show-video-modal noscroll");
-      // reset the source attribute for the iframe template, kills the video
-      $("#youtube").attr('src', '');
-    }
-    // if the 'close' button/element, or the overlay are clicked 
-    $('body').on('click', '.close-video-modal, .video-modal .overlay', function(event) {
-      // call the close and reset function
-      close_video_modal();
-    });
-    // if the ESC key is tapped
-    $('body').keyup(function(e) {
-      // ESC key maps to keycode `27`
-      if (e.keyCode == 27) {
-        // call the close and reset function
-        close_video_modal();
+      },
+      error: function onError() {
+        console.log('Viewer error');
       }
     });
-  }
+  </script>
+
+  <script>
+    function toggle_video_modal() {
+      console.log("Happens!!");
+    }
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script>
+    function toggle_video_modal() {
+      console.log("HA");
+      //   var src = 'https://www.youtube.com/watch?v=r-9M4P7GOuQ'
+      //   var src = '//www.youtube.com/embed/' + '?autoplay=1' + '&rel=0';
+
+
+      //   $("#youtube").attr('src', src);
+
+      $("body").addClass("show-video-modal noscroll");
+
+      // Click on video thumbnail or link
+      $(".js-trigger-video-modal").on("click", function (e) {
+        // prevent default behavior for a-tags, button tags, etc. 
+        e.preventDefault();
+        // Grab the video ID from the element clicked
+        var id = $(this).attr('data-youtube-id');
+        // Autoplay when the modal appears
+        // Note: this is intetnionally disabled on most mobile devices
+        // If critical on mobile, then some alternate method is needed
+        var autoplay = '?autoplay=1';
+        // Don't show the 'Related Videos' view when the video ends
+        var related_no = '&rel=0';
+        // String the ID and param variables together
+        var src = '//www.youtube.com/embed/' + id + autoplay + related_no;
+        // Pass the YouTube video ID into the iframe template...
+        // Set the source on the iframe to match the video ID
+        $("#youtube").attr('src', src);
+        // Add class to the body to visually reveal the modal
+        $("body").addClass("show-video-modal noscroll");
+      });
+      // Close and Reset the Video Modal
+      function close_video_modal() {
+        event.preventDefault();
+        // re-hide the video modal
+        $("body").removeClass("show-video-modal noscroll");
+        // reset the source attribute for the iframe template, kills the video
+        $("#youtube").attr('src', '');
+      }
+      // if the 'close' button/element, or the overlay are clicked 
+      $('body').on('click', '.close-video-modal, .video-modal .overlay', function (event) {
+        // call the close and reset function
+        close_video_modal();
+      });
+      // if the ESC key is tapped
+      $('body').keyup(function (e) {
+        // ESC key maps to keycode `27`
+        if (e.keyCode == 27) {
+          // call the close and reset function
+          close_video_modal();
+        }
+      });
+    }
 //   toggle_video_modal();
 
-    </script>
+  </script>
 </body>
 
 </html>
