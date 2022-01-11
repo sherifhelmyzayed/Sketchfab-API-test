@@ -1,0 +1,11 @@
+.viewer .controls {
+display: none;
+}
+
+.viewer .watermark a{
+    display: none !important; 
+}
+
+.container {
+    margin-top: 200px;
+}
