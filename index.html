@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Sketchfab Viewer Test</title>
   <link rel="stylesheet" href="api.css">
-  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+    integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
 
 
   <!-- Insert this script -->
@@ -21,7 +22,8 @@
       execution-while-out-of-viewport execution-while-not-rendered web-share allowfullscreen mozallowfullscreen="true"
       webkitallowfullscreen="true" width="1200" height="600">
     </iframe>
-    <i class="far fa-video" onclick="toggle_video_modal()"></i>
+    <img class="thumbnail" src="./Capture.jpg" alt="" onclick="toggle_video_modal()">
+    <!-- <i class="far fa-video" onclick="toggle_video_modal()"></i> -->
   </div>
 
 
@@ -39,11 +41,86 @@
     <div class="overlay"></div>
   </section><!-- end video modal -->
 
-
   <!-- Initialize the viewer -->
   <script type="text/javascript">
+    let uid = 'addcaded8efd4266b860e25a5ecb3b99';
+    let url = window.location.href;
+    url = url.split("/");
+    console.log(url);
+    let route = url.indexOf('Sketchfab') + 1;
+    console.log(route);
+
+    switch (url[route]) {
+      case "index.html":
+      case "other":
+        console.log("correct");
+        break;
+
+      case "1":
+        uid = "33d736d5764d478591ff64df74074ede";
+
+      case "2":
+        uid = "6e1187cb267541fdad26e1e8584950be";
+
+      case "3":
+        uid = "2ddd411f151a468e8a1a9eaaeefdf6ec";
+
+      case "4":
+        uid = "e5590d2e6fa64036b00449ec5d47fbb3";
+
+      case "6":
+        uid = "9fc60c306e614acfb639e2d15c3d8d9f";
+
+      case "7":
+        uid = "c15cde52bdf0444aa46d3c40a7af09a1";
+
+      case "10":
+        uid = "9b89a1a45b1c4d95aa135f41773a4bfd";
+
+      case "11":
+        uid = "6be5419f7c4e4a21b283b10cb91c6e7f";
+
+      case "13":
+        uid = "5fd697e157034eee8b46c97d14a7777d";
+
+      case "14":
+        uid = "b9b54f87db144c26ae6e394f703a69e5";
+
+      case "15":
+        uid = "6e5d8c7c72b747fb8085fbec5b222beb";
+
+      case "16":
+        uid = "88f840210026401cbbf09bde860a3940";
+
+      case "18":
+        uid = "3639d8036fa342a595e956082e902f6a";
+
+      case "57":
+        uid = "246f0b71b7644c2aa253226bb1bca916";
+
+      case "59":
+        uid = "cae99cb03bd64284a75470cf8d55f67f";
+
+      case "61":
+        uid = "d660e30cd3fa44a49f83859a977930d6";
+
+      case "62":
+        uid = "e72ea74e4d2b463894aac35a9ab99e8b";
+
+      case "63":
+        uid = "048ea7fad353406c906e41cf810a0c5a";
+
+      case "64":
+        uid = "f34eaf137dd5499ba0bfd6bfd39e0a8d";
+
+
+
+      default:
+        break;
+    }
+
     var iframe = document.getElementById('api-frame');
-    var uid = 'addcaded8efd4266b860e25a5ecb3b99';
+    const thumbnail = document.getElementsByClassName('thumbnail')[0]
 
     // By default, the latest version of the viewer API will be used.
     var client = new Sketchfab(iframe);
@@ -56,12 +133,77 @@
         api.start();
         api.addEventListener('viewerready', function () {
 
+
+
+          // [![image-1](https://www.quackit.com/pix/routeburn_track/routeburn_flats_t.jpg)](?id=1)
+
+
+          // [![](https://www.quackit.com/pix/routeburn_track/routeburn_flats_t.jpg)](https://www.youtube.com/watch?v=fEErySYqItI)
+
+
+          api.updateAnnotation(3, {
+            title: 'video',
+            content: '[![image-1](https://www.quackit.com/pix/routeburn_track/routeburn_flats_t.jpg)]()'
+            // content: `<h1 onclick(toggle_video_modal())>Test</h1>`
+            // content: '<img id="#" onclick(toggle_video_modal()) src="https://www.quackit.com/pix/routeburn_track/routeburn_flats_t.jpg" alt="altText">'
+          }, function (err, information) {
+            if (!err) {
+              window.console.log(document.getElementsByTagName('img'));
+            }
+          });
+
           api.addEventListener('annotationSelect', function (index) {
             if (index === 3) {
-              toggle_video_modal()
+              thumbnail.classList.add('show');
+
+              console.log(index);
+              console.log("Selected");
+              // toggle_video_modal()
             }
-            window.console.log('Selected annotation', index);
+            // window.console.log('Selected annotation', index);
           });
+
+          // api.addEventListener('camerastart', function () {
+          //   window.console.log('Camera is moving');
+          //   thumbnail.classList.remove('show');
+          // });
+
+
+          //           annotationBlur
+          // This event is triggered when the camera leaves an annotation (for example, when a user selects another annotation).
+
+          // The event listener callback receives the index of the annotation that has been left (a number). Annotation indices are zero-based.
+
+          api.addEventListener('annotationBlur', function (index) {
+            window.console.log('Leaving annotation', index);
+            thumbnail.classList.remove('show');
+          });
+
+
+
+
+          // const api3 = api.getAnnotation(3, function (err, arr) {
+          //   if (!err) {
+          //     window.console.log(arr);
+          //   }
+          // });
+
+
+          api.getAnnotationList(function (err, arr) {
+            if (!err) {
+              // window.console.log(arr[3].name);
+              for (let i = 0; i < arr.length; i++) {
+                if (arr[i].name === "Top") {
+                  console.log("correct index" + i);
+                }
+              }
+            }
+          });
+
+
+          // api3.title.addEventListener('click', (x)=> {
+          //   console.log(x);
+          // })
 
 
 

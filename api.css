@@ -160,7 +160,10 @@ iframe#youtube {
 
 
 .iframe{
-  width: 1200px;
+  width: auto;
+  height: auto;
+  display: inline-block;
+  position: relative;
 }
 
 .far {
@@ -170,4 +173,30 @@ iframe#youtube {
   color: white;
   cursor: pointer;
   top: 80px;
+}
+
+
+
+
+/* IMAGE */
+
+.thumbnail {
+  position: absolute;
+  right: 0;
+  width: 150px;
+  border-radius: 5px;
+  margin-top: 20%;
+  margin-right: 20px;
+  align-self: center;
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: all .6s;
+}
+
+.thumbnail.show{
+  opacity: 1;
+  visibility: visible;
+  transition: all 1s;
+
 }
